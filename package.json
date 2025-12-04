@@ -1,0 +1,186 @@
+{
+    "name": "pack-man-vscode",
+    "displayName": "Pack-Man Dependency Analyzer",
+    "description": "Analyze and update package dependencies directly in VS Code",
+    "version": "1.1.0",
+    "publisher": "pack-man",
+    "icon": "icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/avencadigital/pack-man-vscode"
+    },
+    "bugs": {
+        "url": "https://github.com/avencadigital/pack-man-vscode/issues"
+    },
+    "homepage": "https://pack-man.tech",
+    "keywords": [
+        "dependencies",
+        "package",
+        "npm",
+        "pip",
+        "pub",
+        "analyzer",
+        "outdated",
+        "update"
+    ],
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other",
+        "Linters"
+    ],
+    "activationEvents": [
+        "onLanguage:json",
+        "onLanguage:yaml",
+        "onLanguage:plaintext",
+        "onLanguage:pip-requirements",
+        "workspaceContains:**/package.json",
+        "workspaceContains:**/requirements.txt",
+        "workspaceContains:**/pubspec.yaml"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "packman",
+                    "title": "Pack-Man",
+                    "icon": "resources/packman-icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "packman": [
+                {
+                    "id": "packman.main",
+                    "name": "Pack-Man",
+                    "type": "webview",
+                    "visibility": "visible"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "packman.analyzeDependencies",
+                "title": "Pack-Man: Analyze Dependencies"
+            },
+            {
+                "command": "packman.analyzeWorkspace",
+                "title": "Pack-Man: Analyze Workspace"
+            },
+            {
+                "command": "packman.updateDependency",
+                "title": "Pack-Man: Update Dependency"
+            },
+            {
+                "command": "packman.updateAll",
+                "title": "Pack-Man: Update All Dependencies"
+            },
+            {
+                "command": "packman.showAnalysis",
+                "title": "Pack-Man: Show Analysis"
+            },
+            {
+                "command": "packman.configureGitHubToken",
+                "title": "Pack-Man: Configure GitHub Token"
+            },
+            {
+                "command": "packman.removeGitHubToken",
+                "title": "Pack-Man: Remove GitHub Token"
+            }
+        ],
+        "configuration": {
+            "title": "Pack-Man",
+            "properties": {
+                "packman.apiEndpoint": {
+                    "type": "string",
+                    "default": "https://pack-man.tech",
+                    "description": "Pack-Man API endpoint URL"
+                },
+                "packman.autoAnalyzeOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically analyze dependencies when package files are saved"
+                },
+                "packman.autoAnalyzeOnOpen": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically analyze dependencies when package files are opened"
+                },
+                "packman.showCodeLens": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show CodeLens indicators above dependencies"
+                },
+                "packman.showDiagnostics": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show diagnostics in Problems panel"
+                },
+                "packman.showInlineWarnings": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show inline warning decorations (squiggly lines) in the editor"
+                },
+                "packman.excludeFolders": {
+                    "type": "array",
+                    "default": [
+                        "**/node_modules/**",
+                        "**/.next/**",
+                        "**/dist/**",
+                        "**/build/**",
+                        "**/.git/**"
+                    ],
+                    "description": "Glob patterns for folders to exclude from package file analysis",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "packman.analyzeDependencies",
+                "key": "ctrl+alt+a",
+                "mac": "cmd+alt+a",
+                "when": "editorTextFocus && (resourceFilename == 'package.json' || resourceFilename == 'requirements.txt' || resourceFilename == 'pubspec.yaml')"
+            },
+            {
+                "command": "packman.updateAll",
+                "key": "ctrl+alt+u",
+                "mac": "cmd+alt+u",
+                "when": "editorTextFocus && (resourceFilename == 'package.json' || resourceFilename == 'requirements.txt' || resourceFilename == 'pubspec.yaml')"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "node esbuild.js --production",
+        "watch": "node esbuild.js --watch",
+        "test": "vitest --run",
+        "test:watch": "vitest",
+        "lint": "eslint src --ext ts",
+        "package": "vsce package --allow-package-secrets github",
+        "ext-install": "powershell -ExecutionPolicy Bypass -File .\\dev-install.ps1 -Reload",
+        "clean": "powershell -Command \"Remove-Item -Path dist -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path *.vsix -Force -ErrorAction SilentlyContinue\""
+    },
+    "devDependencies": {
+        "@types/node": "24.10.1",
+        "@types/semver": "7.7.1",
+        "@types/vscode": "^1.85.0",
+        "@typescript-eslint/eslint-plugin": "8.48.1",
+        "@typescript-eslint/parser": "8.48.1",
+        "@vscode/test-electron": "^2.5.2",
+        "@vscode/vsce": "3.7.1",
+        "esbuild": "^0.27.1",
+        "eslint": "9.39.1",
+        "fast-check": "4.3.0",
+        "typescript": "^5.9.3",
+        "vitest": "4.0.15"
+    },
+    "dependencies": {
+        "axios": "^1.13.2",
+        "semver": "^7.7.3"
+    }
+}

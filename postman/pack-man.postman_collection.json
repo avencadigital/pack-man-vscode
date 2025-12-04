@@ -1,0 +1,449 @@
+{
+    "info": {
+        "_postman_id": "pack-man-api-collection",
+        "name": "Pack-Man API",
+        "description": "Collection for testing the Pack-Man Dependency Analyzer API.\n\nThis API analyzes package dependencies from various package managers (npm, pip, pub) and returns version information including current version, latest version, and update status.\n\n## Base URL\n- Production: `https://pack-man.tech`\n- Local Development: `http://localhost:3000`\n\n## Authentication\nOptional GitHub token can be provided via Bearer token for enhanced rate limits and private repository access.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://pack-man.tech",
+            "type": "string"
+        },
+        {
+            "key": "githubToken",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "NPM Packages",
+            "item": [
+                {
+                    "name": "Analyze NPM Dependencies",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"axios\\\": \\\"^1.6.0\\\",\\n    \\\"react\\\": \\\"^18.2.0\\\",\\n    \\\"typescript\\\": \\\"^5.0.0\\\"\\n  }\\n}\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes npm dependencies from a package.json file content.\n\nReturns the current version, latest available version, and update status for each package."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Analyze NPM with DevDependencies",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"express\\\": \\\"^4.18.0\\\",\\n    \\\"lodash\\\": \\\"^4.17.0\\\"\\n  },\\n  \\\"devDependencies\\\": {\\n    \\\"jest\\\": \\\"^29.0.0\\\",\\n    \\\"eslint\\\": \\\"^8.0.0\\\"\\n  }\\n}\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes npm dependencies including both dependencies and devDependencies."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Analyze Single NPM Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"next\\\": \\\"^14.0.0\\\"\\n  }\\n}\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes a single npm package to check its version status."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Requests for analyzing npm packages from package.json files."
+        },
+        {
+            "name": "Python Packages",
+            "item": [
+                {
+                    "name": "Analyze Python Dependencies",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"requests==2.31.0\\nflask==3.0.0\\nnumpy>=1.24.0\\npandas~=2.0.0\",\n    \"fileName\": \"requirements.txt\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes Python dependencies from a requirements.txt file.\n\nSupports various version specifiers:\n- `==` exact version\n- `>=` minimum version\n- `~=` compatible release\n- `<=` maximum version"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Analyze Python with Comments",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"# Web framework\\ndjango==4.2.0\\n\\n# Database\\npsycopg2-binary==2.9.9\\nsqlalchemy>=2.0.0\\n\\n# Utils\\npython-dotenv==1.0.0\",\n    \"fileName\": \"requirements.txt\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes Python dependencies with comments and blank lines (which should be ignored)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Analyze Single Python Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"fastapi==0.109.0\",\n    \"fileName\": \"requirements.txt\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes a single Python package."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Requests for analyzing Python packages from requirements.txt files."
+        },
+        {
+            "name": "Dart/Flutter Packages",
+            "item": [
+                {
+                    "name": "Analyze Dart Dependencies",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"name: my_app\\ndependencies:\\n  flutter:\\n    sdk: flutter\\n  http: ^1.1.0\\n  provider: ^6.0.0\\n  shared_preferences: ^2.2.0\",\n    \"fileName\": \"pubspec.yaml\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes Dart/Flutter dependencies from a pubspec.yaml file."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Analyze Flutter App Dependencies",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"name: flutter_app\\ndescription: A Flutter application\\nversion: 1.0.0\\n\\ndependencies:\\n  flutter:\\n    sdk: flutter\\n  cupertino_icons: ^1.0.6\\n  dio: ^5.4.0\\n  get_it: ^7.6.0\\n  bloc: ^8.1.0\\n  flutter_bloc: ^8.1.0\",\n    \"fileName\": \"pubspec.yaml\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes a typical Flutter application's dependencies."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Requests for analyzing Dart/Flutter packages from pubspec.yaml files."
+        },
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Analyze with GitHub Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{githubToken}}",
+                                "description": "GitHub Personal Access Token for enhanced rate limits"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"axios\\\": \\\"^1.6.0\\\",\\n    \\\"react\\\": \\\"^18.2.0\\\"\\n  }\\n}\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Analyzes packages with GitHub token authentication.\n\nSet the `githubToken` collection variable with your GitHub Personal Access Token to use this request."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Requests demonstrating authentication with GitHub token."
+        },
+        {
+            "name": "Error Cases",
+            "item": [
+                {
+                    "name": "Empty Content",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Tests API behavior with empty content."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Invalid JSON Content",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{ invalid json content\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Tests API behavior with malformed JSON in package.json content."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Missing fileName",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"axios\\\": \\\"^1.6.0\\\"\\n  }\\n}\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Tests API behavior when fileName is not provided."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Unknown File Type",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"some content\",\n    \"fileName\": \"unknown.xyz\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Tests API behavior with an unsupported file type."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Non-existent Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"{\\n  \\\"dependencies\\\": {\\n    \\\"this-package-definitely-does-not-exist-12345\\\": \\\"^1.0.0\\\"\\n  }\\n}\",\n    \"fileName\": \"package.json\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analyze-packages",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analyze-packages"
+                            ]
+                        },
+                        "description": "Tests API behavior when analyzing a package that doesn't exist in the registry."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Requests for testing error handling and edge cases."
+        }
+    ]
+}

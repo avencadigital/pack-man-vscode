@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pack-Man simplified icon for VS Code Activity Bar -->
+  <!-- Pac-man style shape with mouth -->
+  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4Z" fill="currentColor"/>
+  <!-- Inner pac-man with mouth opening -->
+  <path d="M12 5C8.13 5 5 8.13 5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12L12 12L12 5Z" fill="currentColor"/>
+  <!-- Eye dot -->
+  <circle cx="10" cy="9" r="1.5" fill="currentColor" fill-opacity="0"/>
+  <!-- Package indicator lines -->
+  <path d="M14 8L17 8M14 10L16 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
