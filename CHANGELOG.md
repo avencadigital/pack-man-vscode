@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2024-12-03
 
 ### Added
+
 - **Visual Folder Exclusion Interface**: New UI in Settings panel for managing excluded folders
   - Add/remove patterns with one click
   - Visual list of all active patterns
@@ -19,12 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Configurable via `packman.excludeFolders` setting
   - Supports glob patterns for flexible matching
   - Improves performance by avoiding unnecessary analysis in build/cache folders
-- **Documentation**: Added comprehensive guides in Portuguese
-  - EXCLUSAO_DE_PASTAS.md - Complete documentation
-  - GUIA_RAPIDO_EXCLUSAO.md - Quick start guide
+- **Documentation**: Added comprehensive guides
   - RELEASE_NOTES_v1.1.0.md - Release notes
 
 ### Changed
+
 - **File Discovery**: Updated file search logic to respect exclusion patterns
 - **Auto-analysis**: File watchers now skip excluded folders
 - **Performance**: Reduced memory usage and analysis time in large projects
@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.1] - 2024-11-28
 
 ### Fixed
+
 - **requirements.txt Updates**: Fixed regex pattern that prevented version updates in requirements.txt files
 - **pubspec.yaml Updates**: Fixed regex pattern that prevented version updates in pubspec.yaml files
 - **Regex Escaping**: Corrected escapeRegex function to properly escape special characters (was using UUID instead of `\\$&`)
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - pubspec.yaml: Supports versions with/without `^` prefix and with/without quotes
 
 ### Technical Details
+
 - Fixed incomplete regex patterns in `updateRequirementsTxtVersion` and `updatePubspecYamlVersion` methods
 - All update methods now properly preserve file formatting and special characters
 - Added comprehensive test coverage for all three file formats
@@ -53,11 +55,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Features
 
 ##### Core Functionality
+
 - **Multi-format Support**: Analyze dependencies from `package.json` (npm), `requirements.txt` (pip), and `pubspec.yaml` (pub)
 - **Automatic Activation**: Extension activates when opening projects with supported package files
 - **Real-time Analysis**: Instant dependency health checking against official registries
 
 ##### Visual Indicators
+
 - **CodeLens Integration**: Inline status indicators above each dependency
   - Green checkmark (✅) for up-to-date packages
   - Yellow warning (⚠️) for outdated packages with available version
@@ -71,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Status Bar**: Project-wide dependency health indicator with click-to-view details
 
 ##### Update Functionality
+
 - **Single Dependency Updates**: One-click updates from CodeLens indicators
 - **Bulk Updates**: Update all outdated dependencies with a single command
 - **Format Preservation**: Maintains file formatting and comments during updates
@@ -78,8 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Success/Error Notifications**: Clear feedback on update results
 
 ##### Smart Features
+
 - **Auto-analysis on Save**: Automatically re-analyzes when package files are saved
-- **Intelligent Caching**: 
+- **Intelligent Caching**:
   - 5-minute TTL for successful API responses
   - 2-minute TTL for error responses
   - Maximum 100 cache entries with LRU eviction
@@ -87,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Multi-root Workspace Support**: Handles multiple projects simultaneously
 
 ##### Commands
+
 - `Pack-Man: Analyze Dependencies` - Analyze active package file
 - `Pack-Man: Analyze Workspace` - Analyze all package files in workspace
 - `Pack-Man: Update Dependency` - Update specific dependency
@@ -94,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Pack-Man: Show Analysis` - Open detailed analysis webview
 
 ##### Configuration
+
 - `packman.apiEndpoint` - Configure API endpoint (default: https://pack-man.tech)
 - `packman.autoAnalyzeOnSave` - Enable/disable auto-analysis on save (default: true)
 - `packman.showCodeLens` - Show/hide CodeLens indicators (default: true)
@@ -101,10 +109,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Token support via VS Code SecretStorage for private repositories
 
 ##### Keyboard Shortcuts
+
 - `Ctrl+Shift+P A` (Mac: `Cmd+Shift+P A`) - Analyze Dependencies
 - `Ctrl+Shift+P U` (Mac: `Cmd+Shift+P U`) - Update All Dependencies
 
 ##### UI Components
+
 - **Webview Panel**: Rich analysis view with:
   - Statistics dashboard (up-to-date, outdated, errors)
   - Detailed package list with status indicators
@@ -112,12 +122,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Theme support (light/dark mode)
 
 ##### Performance
+
 - Fast activation time (< 500ms target)
 - Debounced CodeLens updates (300ms)
 - Incremental parsing for large files
 - Asynchronous processing to avoid blocking UI
 
 ##### Error Handling
+
 - Retry logic with exponential backoff (3 retries)
 - Timeout handling (30 seconds)
 - Rate limit detection with helpful guidance
@@ -161,7 +173,7 @@ The following features are planned for future releases:
 - **Language**: TypeScript
 - **Build System**: esbuild for fast bundling
 - **Testing**: Vitest for unit tests, fast-check for property-based testing
-- **Dependencies**: 
+- **Dependencies**:
   - axios (HTTP client)
   - VS Code Extension API
 
@@ -179,6 +191,7 @@ The following features are planned for future releases:
 ### Planned Features
 
 #### Version 1.1.0
+
 - Full multi-root workspace support with independent folder analysis
 - Terminal integration for running update commands
 - Update command generation (npm, pip, pub)
@@ -186,12 +199,14 @@ The following features are planned for future releases:
 - Rate limit optimization
 
 #### Version 1.2.0
+
 - Monorepo support (Lerna, Nx, Turborepo)
 - Dependency graph visualization
 - Security vulnerability scanning
 - Custom registry support (private npm/pip/pub)
 
 #### Version 2.0.0
+
 - Automated PR creation for dependency updates
 - CI/CD integration
 - Dependency insights (download stats, maintenance status, licenses)
@@ -202,6 +217,7 @@ The following features are planned for future releases:
 ## Support
 
 For issues, feature requests, or contributions:
+
 - **GitHub**: [github.com/avencadigital/pack-man-vscode](https://github.com/avencadigital/pack-man-vscode)
 - **Website**: [pack-man.tech](https://pack-man.tech)
 - **Documentation**: [docs.pack-man.vercel.tech](https://docs.pack-man.tech/)

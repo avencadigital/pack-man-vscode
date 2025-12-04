@@ -135,14 +135,13 @@ Automatically analyze dependencies when package files are opened.
 Glob patterns for folders to exclude from package file analysis. By default, common build and dependency folders are excluded to improve performance and avoid unnecessary analysis.
 
 **Common patterns:**
+
 - `**/node_modules/**` - Node.js dependencies
 - `**/.next/**` - Next.js build cache
 - `**/dist/**` - Distribution/build folder
 - `**/build/**` - Generic build folder
 - `**/.venv/**` - Python virtual environment
 - `**/.dart_tool/**` - Dart tool cache
-
-See [EXCLUSAO_DE_PASTAS.md](./EXCLUSAO_DE_PASTAS.md) for detailed documentation in Portuguese.
 
 Automatically re-analyze dependencies when you save package files.
 
